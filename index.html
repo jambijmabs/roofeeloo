@@ -1,0 +1,311 @@
+<title>Roofeeloo — $ROOFEELOO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #16161c;
+    --bg2: #1e1e26;
+    --card: #22222c;
+    --text: #f4f4f8;
+    --muted: #a8a8b8;
+    --blue: #3fa9ff;
+    --green: #5ad42e;
+    --radius: 22px;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 0;
+  }
+  .brand { font-weight: 800; letter-spacing: .5px; font-size: 1.1rem; }
+  .brand span { color: var(--blue); }
+  .brand b { color: var(--green); }
+  .lang-btn {
+    background: var(--card); color: var(--text); border: 1px solid #333340;
+    border-radius: 999px; padding: 8px 16px; cursor: pointer; font-weight: 700;
+  }
+
+  .hero { text-align: center; padding: 40px 0 30px; }
+  .logo-ring {
+    width: 240px; height: 240px; margin: 0 auto 24px; border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    box-shadow: 0 0 80px rgba(63,169,255,.25), 0 0 120px rgba(90,212,46,.15);
+  }
+  .logo-ring img, .logo-fallback {
+    width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;
+    background: var(--bg2);
+  }
+  .logo-fallback {
+    display: flex; align-items: center; justify-content: center; font-size: 100px;
+  }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.2rem); font-weight: 900; letter-spacing: 1px;
+  }
+  .ticker {
+    font-size: 1.4rem; font-weight: 800; margin-top: 4px;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .tagline { color: var(--muted); font-size: 1.15rem; margin: 14px auto 26px; max-width: 520px; }
+
+  .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    padding: 14px 26px; border-radius: 999px; font-weight: 800; text-decoration: none;
+    color: #10141a; background: linear-gradient(90deg, var(--blue), var(--green));
+    transition: transform .15s;
+  }
+  .btn.ghost { background: var(--card); color: var(--text); border: 1px solid #333340; }
+  .btn:hover { transform: translateY(-2px) scale(1.03); }
+
+  .ca-box {
+    margin: 28px auto 0; max-width: 620px; background: var(--card);
+    border: 1px solid #333340; border-radius: var(--radius);
+    padding: 12px 16px; display: flex; gap: 10px; align-items: center; justify-content: space-between;
+  }
+  .ca-box code { color: var(--muted); font-size: .85rem; overflow-wrap: anywhere; text-align: left; }
+  .copy { background: none; border: 1px solid #3c3c4a; color: var(--text); border-radius: 10px; padding: 6px 12px; cursor: pointer; }
+
+  section { padding: 56px 0 8px; }
+  h2 { font-size: 2rem; font-weight: 900; text-align: center; margin-bottom: 8px; }
+  .sub { text-align: center; color: var(--muted); max-width: 560px; margin: 0 auto 32px; }
+
+  .daily {
+    background: linear-gradient(135deg, rgba(63,169,255,.12), rgba(90,212,46,.12));
+    border: 1px solid #333340; border-radius: var(--radius);
+    padding: 36px 28px; text-align: center;
+  }
+  .daily .big { font-size: 3rem; }
+  .daily h2 { margin-bottom: 12px; }
+  .daily p { color: var(--muted); max-width: 560px; margin: 0 auto; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--card); border: 1px solid #333340; border-radius: var(--radius);
+    padding: 26px 22px; text-align: center;
+  }
+  .card .ico { font-size: 2.2rem; margin-bottom: 10px; }
+  .card h3 { margin-bottom: 6px; }
+  .card p { color: var(--muted); font-size: .95rem; }
+  .card .req {
+    font-weight: 800; font-size: .95rem; margin-bottom: 4px;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .card .freq { font-weight: 700; font-size: .9rem; margin-bottom: 8px; }
+  .step-n {
+    width: 34px; height: 34px; border-radius: 50%; margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center; font-weight: 800;
+    background: linear-gradient(135deg, var(--blue), var(--green)); color: #10141a;
+  }
+
+  .tok { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; }
+  .tok .card b { font-size: 1.5rem; display: block; }
+  .tok .card span { color: var(--muted); font-size: .9rem; }
+
+  footer {
+    margin-top: 64px; padding: 32px 0 44px; background: var(--bg2);
+    text-align: center; color: var(--muted); font-size: .85rem;
+  }
+  footer .paws { font-size: 1.3rem; margin-bottom: 10px; }
+  footer p { max-width: 640px; margin: 0 auto 8px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand">ROOFEELOO <span>●</span><b>●</b></div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">🌐 Español</button>
+  </header>
+
+  <div class="hero">
+    <div class="logo-ring">
+      <img src="logo.png" alt="Roofeeloo" onerror="this.outerHTML='<div class=logo-fallback>🐱</div>'">
+    </div>
+    <h1>ROOFEELOO</h1>
+    <div class="ticker">$ROOFEELOO</div>
+    <p class="tagline" data-en="One eye on the chart. One eye on you. The prettiest cat on Solana — and the more $ROOFEELOO you hold, the more photos of him you receive."
+       data-es="Un ojo mira el chart. El otro te mira a ti. El gato más bonito de Solana — y mientras más $ROOFEELOO tengas, más fotos suyas recibes.">
+      One eye on the chart. One eye on you. The prettiest cat on Solana — and the more $ROOFEELOO you hold, the more photos of him you receive.</p>
+    <div class="btns">
+      <!-- Al lanzar: cambia el href por el link de pump.fun y el texto por "Buy on pump.fun" -->
+      <a class="btn" href="https://pump.fun" target="_blank" rel="noopener"
+         data-en="Launching soon on pump.fun" data-es="Muy pronto en pump.fun">Launching soon on pump.fun</a>
+      <a class="btn ghost" href="https://t.me/Roofeeloo" target="_blank" rel="noopener">Telegram 🐾</a>
+      <a class="btn ghost" href="https://t.me/Roofeeloo_bot" target="_blank" rel="noopener"
+         data-en="Verify your wallet 🤖" data-es="Verifica tu wallet 🤖">Verify your wallet 🤖</a>
+    </div>
+    <div class="ca-box">
+      <code id="ca" data-en="Contract address — published here at launch"
+            data-es="Dirección del contrato — se publica aquí al lanzar">Contract address — published here at launch</code>
+      <button class="copy" onclick="copyCA()" data-en="Copy" data-es="Copiar">Copy</button>
+    </div>
+    <p class="tagline" style="font-size:.9rem;margin-top:14px"
+       data-en="⚠️ Only trust the contract address published here and on t.me/Roofeeloo. Anything else is fake."
+       data-es="⚠️ Confía solo en el contrato publicado aquí y en t.me/Roofeeloo. Cualquier otro es falso.">
+      ⚠️ Only trust the contract address published here and on t.me/Roofeeloo. Anything else is fake.</p>
+  </div>
+
+  <section>
+    <div class="daily">
+      <div class="big">📸</div>
+      <h2 data-en="The most honest utility in crypto" data-es="La utilidad más honesta de crypto">The most honest utility in crypto</h2>
+      <p data-en="Hold $ROOFEELOO, DM the bot your wallet, and you're in — instantly. From 1 photo a week up to 5 drops a week, including exclusive Saturday VIDEOS at the top level. Every photo goes out stamped with its drop number, like a numbered collectible. No roadmap. No empty promises. Just a beautiful cat showing up for you, week after week."
+         data-es="Ten $ROOFEELOO, mándale tu wallet al bot por privado y entras al instante. Desde 1 foto por semana hasta 5 drops semanales, con VIDEOS exclusivos los sábados en el nivel máximo. Cada foto sale sellada con su número de drop, como un coleccionable numerado. Sin roadmap. Sin promesas vacías. Solo un gato precioso apareciendo para ti, semana tras semana.">
+        Hold $ROOFEELOO, DM the bot your wallet, and you're in — instantly. From 1 photo a week up to 5 drops a week, including exclusive Saturday VIDEOS at the top level. Every photo goes out stamped with its drop number, like a numbered collectible. No roadmap. No empty promises. Just a beautiful cat showing up for you, week after week.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-en="Holder tiers" data-es="Niveles de holder">Holder tiers</h2>
+    <p class="sub" data-en="Five levels, five private channels. Hold more, get more days of Roofeeloo every week." data-es="Cinco niveles, cinco canales privados. Mientras más tengas, más días de Roofeeloo por semana.">Five levels, five private channels. Hold more, get more days of Roofeeloo every week.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">🐾</div>
+        <h3 data-en="Level 1" data-es="Nivel 1">Level 1</h3>
+        <p class="req">1 – 20 Roofeeloos</p>
+        <p class="freq" data-en="📅 1 photo per week — Fridays" data-es="📅 1 foto por semana — los viernes">📅 1 photo per week — Fridays</p>
+        <p data-en="The Friday photo + access to the community group. Welcome to the family."
+           data-es="La foto del viernes + acceso al grupo de la comunidad. Bienvenido a la familia.">
+          The Friday photo + access to the community group. Welcome to the family.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💙</div>
+        <h3 data-en="Level 2" data-es="Nivel 2">Level 2</h3>
+        <p class="req">21 – 40 Roofeeloos</p>
+        <p class="freq" data-en="📅 2 photos per week — Mon &amp; Fri" data-es="📅 2 fotos por semana — lunes y viernes">📅 2 photos per week — Mon &amp; Fri</p>
+        <p data-en="Mondays get better: an exclusive drop to start the week."
+           data-es="Los lunes mejoran: un drop exclusivo para arrancar la semana.">
+          Mondays get better: an exclusive drop to start the week.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💚</div>
+        <h3 data-en="Level 3" data-es="Nivel 3">Level 3</h3>
+        <p class="req">41 – 60 Roofeeloos</p>
+        <p class="freq" data-en="📅 3 photos per week — Mon, Fri &amp; Sun" data-es="📅 3 fotos por semana — lunes, viernes y domingo">📅 3 photos per week — Mon, Fri &amp; Sun</p>
+        <p data-en="Sunday exclusive drop. Weekends with Roofeeloo hit different."
+           data-es="Drop exclusivo dominical. Los findes con Roofeeloo se sienten distinto.">
+          Sunday exclusive drop. Weekends with Roofeeloo hit different.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💙💚</div>
+        <h3 data-en="Level 4" data-es="Nivel 4">Level 4</h3>
+        <p class="req">61 – 80 Roofeeloos</p>
+        <p class="freq" data-en="📅 4 photos per week — Mon, Wed, Fri &amp; Sun" data-es="📅 4 fotos por semana — lunes, miércoles, viernes y domingo">📅 4 photos per week — Mon, Wed, Fri &amp; Sun</p>
+        <p data-en="Close-ups and premium detail shots — his 1-in-1,000 eyes up close."
+           data-es="Primeros planos y detalles premium — sus ojos de 1 entre 1,000 de cerca.">
+          Close-ups and premium detail shots — his 1-in-1,000 eyes up close.</p>
+      </div>
+      <div class="card">
+        <div class="ico">👑</div>
+        <h3 data-en="Level 5" data-es="Nivel 5">Level 5</h3>
+        <p class="req">81+ Roofeeloos</p>
+        <p class="freq" data-en="📅 5 drops per week — Mon, Wed, Fri, Sat &amp; Sun · Saturday is VIDEO 🎥" data-es="📅 5 drops por semana — lun, mié, vie, sáb y dom · el sábado es VIDEO 🎥">📅 5 drops per week — Mon, Wed, Fri, Sat &amp; Sun · Saturday is VIDEO 🎥</p>
+        <p data-en="The only tier that sees Roofeeloo in motion: exclusive videos every Saturday. Fewer than 125 wallets can mathematically exist here."
+           data-es="El único nivel que ve a Roofeeloo en movimiento: videos exclusivos cada sábado. Matemáticamente caben menos de 125 wallets aquí.">
+          The only tier that sees Roofeeloo in motion: exclusive videos every Saturday. Fewer than 125 wallets can mathematically exist here.</p>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:18px"
+       data-en="1 Roofeeloo = 100,000 $ROOFEELOO tokens · Fixed supply: 10,000 Roofeeloos total — no more will ever exist. Buy more and the bot moves you up a level automatically."
+       data-es="1 Roofeeloo = 100,000 tokens $ROOFEELOO · Supply fijo: 10,000 Roofeeloos en total — jamás existirán más. Si compras más, el bot te sube de nivel automáticamente.">
+      1 Roofeeloo = 100,000 $ROOFEELOO tokens · Fixed supply: 10,000 Roofeeloos total — no more will ever exist. Buy more and the bot moves you up a level automatically.</p>
+  </section>
+
+  <section>
+    <h2 data-en="Why Roofeeloo?" data-es="¿Por qué Roofeeloo?">Why Roofeeloo?</h2>
+    <p class="sub" data-en="Because the internet was built for exactly this." data-es="Porque el internet se inventó exactamente para esto.">Because the internet was built for exactly this.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">🐱</div>
+        <h3 data-en="A real cat" data-es="Un gato real">A real cat</h3>
+        <p data-en="Not AI. Not a stock photo. A real, spoiled, keyboard-sitting cat. The daily photo proves it."
+           data-es="No es IA. No es foto de stock. Un gato real, consentido, que se sienta en el teclado. La foto diaria lo demuestra.">
+          Not AI. Not a stock photo. A real, spoiled, keyboard-sitting cat. The daily photo proves it.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💙💚</div>
+        <h3 data-en="1-in-1,000 eyes" data-es="Ojos de 1 entre 1,000">1-in-1,000 eyes</h3>
+        <p data-en="Heterochromia: one blue eye, one green eye. Statistically rarer than your favorite NFT."
+           data-es="Heterocromía: un ojo azul y uno verde. Estadísticamente más raro que tu NFT favorito.">
+          Heterochromia: one blue eye, one green eye. Statistically rarer than your favorite NFT.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🐾</div>
+        <h3 data-en="The Roofam" data-es="La Roofam">The Roofam</h3>
+        <p data-en="No VCs, no team allocation, no suits. Just a cat, his humans, and a community that likes nice things."
+           data-es="Sin fondos de inversión, sin tokens para el equipo, sin corbatas. Solo un gato, sus humanos y una comunidad que ama las cosas bonitas.">
+          No VCs, no team allocation, no suits. Just a cat, his humans, and a community that likes nice things.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-en="How to buy" data-es="Cómo comprar">How to buy</h2>
+    <p class="sub" data-en="Three steps. Easier than opening a can of tuna." data-es="Tres pasos. Más fácil que abrir una lata de atún.">Three steps. Easier than opening a can of tuna.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="step-n">1</div>
+        <h3 data-en="Get a wallet" data-es="Crea una wallet">Get a wallet</h3>
+        <p data-en="Download Phantom (phantom.com) on mobile or as a browser extension."
+           data-es="Descarga Phantom (phantom.com) en el celular o como extensión del navegador.">
+          Download Phantom (phantom.com) on mobile or as a browser extension.</p>
+      </div>
+      <div class="card">
+        <div class="step-n">2</div>
+        <h3 data-en="Add some SOL" data-es="Ponle SOL">Add some SOL</h3>
+        <p data-en="Buy SOL inside Phantom or send it from your exchange."
+           data-es="Compra SOL dentro de Phantom o envíalo desde tu exchange.">
+          Buy SOL inside Phantom or send it from your exchange.</p>
+      </div>
+      <div class="card">
+        <div class="step-n">3</div>
+        <h3 data-en="Swap &amp; unlock" data-es="Cámbialo y desbloquea">Swap &amp; unlock</h3>
+        <p data-en="Paste the contract address on pump.fun, buy, then DM your wallet address to @Roofeeloo_bot — it verifies you and sends your channel link instantly. 🐾"
+           data-es="Pega el contrato en pump.fun, compra, y mándale tu dirección de wallet a @Roofeeloo_bot por privado — te verifica y te manda el link de tu canal al instante. 🐾">
+          Paste the contract address on pump.fun, buy, then DM your wallet address to @Roofeeloo_bot — it verifies you and sends your channel link instantly. 🐾</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-en="Tokenomics" data-es="Tokenomics">Tokenomics</h2>
+    <p class="sub" data-en="Boring on purpose. The cat is the exciting part." data-es="Aburridos a propósito. Lo emocionante es el gato.">Boring on purpose. The cat is the exciting part.</p>
+    <div class="tok">
+      <div class="card"><b>10K</b><span data-en="Roofeeloos total (1B tokens)" data-es="Roofeeloos en total (1B tokens)">Roofeeloos total (1B tokens)</span></div>
+      <div class="card"><b>0%</b><span data-en="buy / sell tax" data-es="impuesto compra/venta">buy / sell tax</span></div>
+      <div class="card"><b>100%</b><span data-en="fair launch on pump.fun" data-es="fair launch en pump.fun">fair launch on pump.fun</span></div>
+      <div class="card"><b>🔥</b><span data-en="LP locked at graduation" data-es="LP bloqueada al graduar">LP locked at graduation</span></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="paws">🐾 💙💚 🐾</div>
+  <p data-en="$ROOFEELOO is a meme coin created for fun and cat appreciation. It has no intrinsic value and no expectation of financial return. The only thing anyone promises you is a daily photo of a very pretty cat. Nothing here is financial advice — never spend money you can't afford to lose."
+     data-es="$ROOFEELOO es un memecoin creado por diversión y amor a los gatos. No tiene valor intrínseco ni expectativa de rendimiento financiero. Lo único que se te promete es la foto diaria de un gato muy bonito. Nada de esto es consejo financiero — nunca gastes dinero que no puedas perder.">
+    $ROOFEELOO is a meme coin created for fun and cat appreciation. It has no intrinsic value and no expectation of financial return. The only thing anyone promises you is a daily photo of a very pretty cat. Nothing here is financial advice — never spend money you can't afford to lose.</p>
+  <p>© 2026 Roofeeloo · one eye on the chart, one eye on you</p>
+</footer>
+
+<script>
+  let lang = 'en';
+  function toggleLang() {
+    lang = lang === 'en' ? 'es' : 'en';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.dataset[lang];
+    });
+    document.getElementById('langBtn').textContent = lang === 'en' ? '🌐 Español' : '🌐 English';
+  }
+  function copyCA() {
+    const ca = document.getElementById('ca').textContent;
+    navigator.clipboard && navigator.clipboard.writeText(ca);
+  }
+</script>
