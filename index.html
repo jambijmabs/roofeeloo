@@ -135,8 +135,8 @@
        data-es="Un ojo mira el chart. El otro te mira a ti. El gato más bonito de Solana — y mientras más $ROOFEELOO tengas, más fotos suyas recibes.">
       One eye on the chart. One eye on you. The prettiest cat on Solana — and the more $ROOFEELOO you hold, the more photos of him you receive.</p>
     <div class="btns">
-      <!-- Con el CA: cambia el href por https://pump.fun/coin/EL_CONTRATO -->
-      <a class="btn" href="https://pump.fun" target="_blank" rel="noopener"
+      <!-- El href se ajusta solo al poner TOKEN_CA en el script de abajo -->
+      <a class="btn" id="buyBtn" href="https://pump.fun" target="_blank" rel="noopener"
          data-en="Buy on pump.fun 🚀" data-es="Compra en pump.fun 🚀">Buy on pump.fun 🚀</a>
       <a class="btn ghost" href="https://t.me/Roofeeloo" target="_blank" rel="noopener">Telegram 🐾</a>
       <a class="btn ghost" href="https://t.me/Roofeeloo_bot" target="_blank" rel="noopener"
@@ -257,6 +257,17 @@
     </div>
   </section>
 
+  <section id="statsSec" style="display:none">
+    <h2 data-en="Live stats" data-es="Stats en vivo">Live stats</h2>
+    <p class="sub" data-en="Straight from the blockchain — refreshes every minute." data-es="Directo de la blockchain — se actualiza cada minuto.">Straight from the blockchain — refreshes every minute.</p>
+    <div class="tok">
+      <div class="card"><b id="statMcap">—</b><span data-en="market cap" data-es="market cap">market cap</span></div>
+      <div class="card"><b id="statPrecio">—</b><span data-en="price per token" data-es="precio por token">price per token</span></div>
+      <div class="card"><b id="statVol">—</b><span data-en="24h volume" data-es="volumen 24h">24h volume</span></div>
+      <div class="card"><b>📈</b><span><a id="dexLink" href="https://dexscreener.com" target="_blank" rel="noopener" style="color:var(--blue)" data-en="live chart on Dexscreener" data-es="chart en vivo en Dexscreener">live chart on Dexscreener</a></span></div>
+    </div>
+  </section>
+
   <section>
     <h2 data-en="Tokenomics" data-es="Tokenomics">Tokenomics</h2>
     <p class="sub" data-en="Boring on purpose. The cat is the exciting part." data-es="Aburridos a propósito. Lo emocionante es el gato.">Boring on purpose. The cat is the exciting part.</p>
@@ -289,5 +300,36 @@
   function copyCA() {
     const ca = document.getElementById('ca').textContent;
     navigator.clipboard && navigator.clipboard.writeText(ca);
+  }
+
+  // ===== Se activa solo al poner el contrato real aquí =====
+  const TOKEN_CA = "";
+  if (TOKEN_CA) {
+    document.getElementById('ca').textContent = TOKEN_CA;
+    document.getElementById('ca').removeAttribute('data-en');
+    document.getElementById('ca').removeAttribute('data-es');
+    document.getElementById('buyBtn').href = 'https://pump.fun/coin/' + TOKEN_CA;
+    document.getElementById('dexLink').href = 'https://dexscreener.com/solana/' + TOKEN_CA;
+    document.getElementById('statsSec').style.display = '';
+    const abrev = n => {
+      if (n == null || isNaN(n)) return '—';
+      if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+      if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+      if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+      return Number(n).toFixed(2);
+    };
+    async function cargarStats() {
+      try {
+        const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/' + TOKEN_CA);
+        const d = await r.json();
+        const p = (d.pairs || [])[0];
+        if (!p) return;
+        document.getElementById('statMcap').textContent = '$' + abrev(p.marketCap ?? p.fdv);
+        document.getElementById('statPrecio').textContent = '$' + Number(p.priceUsd).toPrecision(3);
+        document.getElementById('statVol').textContent = '$' + abrev(p.volume && p.volume.h24);
+      } catch (e) { /* si Dexscreener aún no indexa, se reintenta al minuto */ }
+    }
+    cargarStats();
+    setInterval(cargarStats, 60000);
   }
 </script>
